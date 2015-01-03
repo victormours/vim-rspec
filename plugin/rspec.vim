@@ -14,7 +14,14 @@ endfunction
 function! RunSpec(spec_file_name)
   new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  let s:command = "read ! rspec ". a:spec_file_name . " --color --tty"
+
+  if exists("g:rspec_command")
+    let s:rspec_command = g:rspec_command
+  else
+    let s:rspec_command = "rspec"
+  endif
+
+  let s:command = "read ! " . s:rspec_command . " " . a:spec_file_name . " --color --tty"
   echo "running rspec " . a:spec_file_name
   silent execute s:command
   setlocal nomodifiable
