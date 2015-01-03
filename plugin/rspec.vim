@@ -19,5 +19,5 @@ function! RunSpec(spec_file_name)
   execute s:command
   setlocal nomodifiable
   setlocal conceallevel=3
-  setlocal syntax=vim-rspec
+  setlocal syntax=shell-output
 endfunction
