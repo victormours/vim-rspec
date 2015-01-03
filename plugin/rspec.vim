@@ -16,8 +16,9 @@ function! RunSpec(spec_file_name)
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   let s:command = "read ! rspec ". a:spec_file_name . " --color --tty"
   echo "running rspec " . a:spec_file_name
-  execute s:command
+  silent execute s:command
   setlocal nomodifiable
   setlocal conceallevel=3
+  setlocal concealcursor=nv
   setlocal syntax=shell-output
 endfunction
