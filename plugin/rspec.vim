@@ -1,27 +1,21 @@
-command RspecFile call RunSpecFile()
-command RspecLine call RunSpecLine()
+command RspecFile call RunSpecFile("rspec")
+command RspecLine call RunSpecLine("rspec")
 
-function! RunSpecFile()
+function! RunSpecFile(rspec_command)
   let s:spec_file_name = @%
-  call RunSpec(s:spec_file_name)
+  call RunSpec(a:rspec_command, s:spec_file_name)
 endfunction
 
-function! RunSpecLine()
+function! RunSpecLine(rspec_command)
   let s:spec_file_name = @% . ':' . line(".")
-  call RunSpec(s:spec_file_name)
+  call RunSpec(a:rspec_command, s:spec_file_name)
 endfunction
 
-function! RunSpec(spec_file_name)
+function! RunSpec(rspec_command, spec_file_name)
   new
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
 
-  if exists("g:rspec_command")
-    let s:rspec_command = g:rspec_command
-  else
-    let s:rspec_command = "rspec"
-  endif
-
-  let s:command = "read ! " . s:rspec_command . " " . a:spec_file_name . " --color --tty"
+  let s:command = "read ! " . a:rspec_command . " " . a:spec_file_name . " --color --tty"
   echo "running rspec " . a:spec_file_name
   silent execute s:command
   setlocal nomodifiable
