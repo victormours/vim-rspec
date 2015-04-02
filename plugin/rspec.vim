@@ -1,3 +1,8 @@
+if (exists('g:loaded_vim_rspec') && g:loaded_vim_rspec)
+  finish
+endif
+let g:loaded_vim_rspec = 1
+
 command RspecFile call RunSpecFile("rspec")
 command RspecLine call RunSpecLine("rspec")
 
